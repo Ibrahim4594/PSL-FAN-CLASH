@@ -1,0 +1,600 @@
+[
+  {
+    "inputs": [],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [],
+    "name": "OutOfBounds",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      }
+    ],
+    "name": "OwnableInvalidOwner",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "OwnableUnauthorizedAccount",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "Unauthorized",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ZeroAddress",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "caller",
+        "type": "address"
+      }
+    ],
+    "name": "CallerAuthorized",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "caller",
+        "type": "address"
+      }
+    ],
+    "name": "CallerRevoked",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint8",
+        "name": "teamId",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "CharityContributionRecorded",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint8",
+        "name": "teamId",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "totalCharity",
+        "type": "uint256"
+      }
+    ],
+    "name": "CharityMilestone",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint8",
+        "name": "teamId",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "seasonTotal",
+        "type": "uint256"
+      }
+    ],
+    "name": "FanStakeRecorded",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "FanWinRecorded",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "previousOwner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "OwnershipTransferred",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "caller",
+        "type": "address"
+      }
+    ],
+    "name": "authorizeCaller",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "authorizedCallers",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "charityDAO",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_index",
+        "type": "uint256"
+      }
+    ],
+    "name": "getFanAddress",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_user",
+        "type": "address"
+      }
+    ],
+    "name": "getFanProfile",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "totalStaked",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "totalWon",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "matchesParticipated",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint8",
+            "name": "primaryTeam",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint256",
+            "name": "charityVotesCast",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "exists",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct SeasonLeaderboard.FanProfile",
+        "name": "profile",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "limit",
+        "type": "uint256"
+      }
+    ],
+    "name": "getFansPaginated",
+    "outputs": [
+      {
+        "internalType": "address[]",
+        "name": "fans",
+        "type": "address[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getSeasonStats",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "_totalStaked",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_totalCharity",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_totalFans",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint8",
+        "name": "_teamId",
+        "type": "uint8"
+      }
+    ],
+    "name": "getTeamStats",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "totalStakedByFans",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "totalCharityGenerated",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "uniqueFans",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "wins",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct SeasonLeaderboard.TeamStats",
+        "name": "stats",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "count",
+        "type": "uint256"
+      }
+    ],
+    "name": "getTopFans",
+    "outputs": [
+      {
+        "internalType": "address[]",
+        "name": "addresses",
+        "type": "address[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "stakes",
+        "type": "uint256[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getTotalFans",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "matchFactory",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "owner",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint8",
+        "name": "_teamId",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "recordCharityContribution",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_user",
+        "type": "address"
+      }
+    ],
+    "name": "recordCharityVote",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_user",
+        "type": "address"
+      },
+      {
+        "internalType": "uint8",
+        "name": "_teamId",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "recordStake",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_user",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "recordWin",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "renounceOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "caller",
+        "type": "address"
+      }
+    ],
+    "name": "revokeCaller",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "seasonTotalCharity",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "seasonTotalStaked",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_charityDAO",
+        "type": "address"
+      }
+    ],
+    "name": "setCharityDAO",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_factory",
+        "type": "address"
+      }
+    ],
+    "name": "setMatchFactory",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

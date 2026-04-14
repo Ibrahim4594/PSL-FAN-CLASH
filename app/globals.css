@@ -1,0 +1,247 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: #0a0a0a;
+  --foreground: #f7f8f8;
+  --accent: #FF3B30;
+  --font-display: 'Clash Display', sans-serif;
+  --font-body: 'Satoshi', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
+  --animate-marquee: marquee var(--duration) linear infinite;
+  --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
+  --animate-border-beam: border-beam calc(var(--duration)*1s) infinite linear;
+  --color-card: #0a0a0a;
+  --color-card-foreground: #f7f8f8;
+  --color-muted-foreground: rgba(255,255,255,0.5);
+  --color-border: rgba(255,255,255,0.08);
+  --color-input: rgba(255,255,255,0.1);
+  --color-ring: rgba(255,255,255,0.2);
+  --color-primary: #f7f8f8;
+  --color-primary-foreground: #0a0a0a;
+  --color-secondary: rgba(255,255,255,0.1);
+  --color-secondary-foreground: #f7f8f8;
+  --color-accent: rgba(255,255,255,0.05);
+  --color-accent-foreground: #f7f8f8;
+  --color-muted: rgba(255,255,255,0.05);
+  --color-destructive: #FF3B30;
+  --color-destructive-foreground: #f7f8f8;
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(calc(-100% - var(--gap))); }
+  }
+  @keyframes marquee-vertical {
+    from { transform: translateY(0); }
+    to { transform: translateY(calc(-100% - var(--gap))); }
+  }
+  @keyframes border-beam {
+    100% { offset-distance: 100%; }
+  }
+}
+
+/* ── Reset ── */
+*, :after, :before { box-sizing: border-box; }
+
+/* ── Base ── */
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+  touch-action: manipulation;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100dvh;
+  background: #0a0a0a;
+  color: #f7f8f8;
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* ── Focus ring override — prevent blue browser default ── */
+input:focus, button:focus-visible, select:focus, textarea:focus {
+  outline: 1px solid rgba(255,255,255,0.2);
+  outline-offset: 2px;
+}
+
+/* ── Interactive cursor ── */
+button, a, [role="button"], [tabindex="0"] { cursor: pointer; }
+
+/* ── Custom easing curves ── */
+:root {
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* ── Button feedback ── */
+button:active, a[role="button"]:active {
+  transform: scale(0.97);
+  transition: transform 160ms var(--ease-out);
+}
+
+/* ── Card surfaces ── */
+.glass-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+  backdrop-filter: blur(12px);
+  transition: border-color 200ms var(--ease-out),
+              transform 200ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .glass-card:hover {
+    border-color: rgba(255,255,255,0.15);
+    transform: translateY(-2px);
+  }
+}
+
+/* ── Typography ── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+h1 { font-size: clamp(4rem, 15vw, 10rem); text-transform: uppercase; line-height: 0.85; letter-spacing: -0.05em; }
+h2 { font-size: clamp(2.5rem, 7vw, 5.5rem); line-height: 0.9; }
+h3 { font-size: clamp(1.5rem, 3vw, 2.25rem); }
+
+.page-heading {
+  font-size: clamp(2.5rem, 5vw, 4rem) !important;
+  text-transform: uppercase;
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+}
+
+code, pre, .font-mono { font-family: var(--font-mono); }
+
+/* ══════════════════════════════════════════════════
+   CENTERING FIX — !important beats Tailwind layers
+   These classes are used in section components to
+   guarantee centering regardless of CSS cascade.
+   ══════════════════════════════════════════════════ */
+
+/* Centered section wrapper */
+.sc {
+  max-width: 1152px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+}
+
+/* Centered text */
+.tc {
+  text-align: center !important;
+}
+
+/* Centered block (for constrained paragraphs) */
+.mc {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* 3-column grid on md+ — !important to override inline styles */
+@media (min-width: 1024px) {
+  .lg\:\!grid-cols-3 {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+  .lg\:\!grid-cols-\[1fr_360px\] {
+    grid-template-columns: 1fr 360px !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:\!grid-cols-2 {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .md\:\!grid-cols-3 {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+  .md\:\!grid-cols-4 {
+    grid-template-columns: repeat(4, 1fr) !important;
+  }
+}
+
+/* ── Responsive: bento card internal grids collapse on mobile ── */
+@media (max-width: 639px) {
+  .bento-internal-2col {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ── Responsive: navbar padding reduction on small screens ── */
+@media (max-width: 380px) {
+  .sc {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+}
+
+/* ── Responsive: floating team badges scale down on mobile ── */
+@media (max-width: 639px) {
+  .pick-badge {
+    transform: scale(0.65) !important;
+  }
+}
+
+/* ── Responsive: reduce top padding on mobile (navbar is at bottom) ── */
+@media (max-width: 639px) {
+  .pt-28 { padding-top: 1.5rem !important; }
+  .pt-32 { padding-top: 2rem !important; }
+  .pt-36 { padding-top: 2rem !important; }
+  /* Ensure content isn't hidden behind bottom navbar on mobile */
+  main.flex-1 { padding-bottom: 80px !important; }
+}
+
+::selection { background: #f7f8f8; color: #0a0a0a; }
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #0a0a0a; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+
+/* ── Skeleton pulse animation (B&W theme: white at low opacity) ── */
+@keyframes skeleton-pulse {
+  0%, 100% { background: rgba(255,255,255,0.06); }
+  50% { background: rgba(255,255,255,0.12); }
+}
+.skeleton-pulse {
+  animation: skeleton-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* ── Link hover ── */
+a { transition: color 200ms var(--ease-out); }
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .glass-card:hover { transform: none; }
+}
+
+/* ── Pointer hover ── */
+@media (hover: hover) and (pointer: fine) {
+  a:hover { color: #f7f8f8; }
+}
